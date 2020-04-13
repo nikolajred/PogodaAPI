@@ -8,17 +8,23 @@ import java.net.URL;
 
 public class Parser {
     private static Document getPage() throws IOException {
-        String url = "http://www.pogoda.spb.ru/";
+        String url = "https://meteo.ua/150/harkov/";
         Document page = Jsoup.parse(new URL(url), 3000);
         return page;
 
     }
 
     public static void main(String[] args) throws IOException {
-        Document page = getPage();
-        Element tableWth = page.select("table[class = wt]").first();
-        System.out.println(tableWth);
         String date = "";
-        System.out.println(date + " Погодные явления   t°C   Давл.   Отн. влажн.   Ветер");
+        System.out.println(date + " t°C      Ощущается как   Вероятн.осадков     Давление, мм рт.ст.     Влажность, %    Ветер, м/с");
+
+        Document page = getPage();
+        Element contentWth = page.select("a[class = wwt_cont]").first();
+        Element tableWth = page.select("div[class = weather_info]").first();
+        System.out.println(contentWth);
+        System.out.println(tableWth);
+
+
     }
+
 }
